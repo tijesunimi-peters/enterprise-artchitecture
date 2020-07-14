@@ -1,0 +1,64 @@
+<ui:composition template="./partials/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+    <ui:define name="content">
+        <h1>
+            #{newStudentBean.pageName} Student
+        </h1>
+
+        <div class="row">
+            <div class="twelve columns">
+                <f:view>
+                    <h:form>
+                        <h:inputHidden value="#{newStudentBean.student.id}" />
+                        <div class="row">
+                            <div class="six columns">
+                                <h:outputLabel value="First name" for="firstName" />
+                                <h:inputText id="firstName" value="#{newStudentBean.student.firstName}" styleClass="u-full-width" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="six columns">
+                                <h:outputLabel value="Last name" for="lastName" />
+                                <h:inputText id="lastName" value="#{newStudentBean.student.lastName}" styleClass="u-full-width" />
+                            </div>
+                        </div>
+
+                        <c:if test="#{newStudentBean.showGpa()}">
+                            <div class="row">
+                                <div class="six columns">
+                                    <h:outputLabel value="GPA" for="gpa" />
+                                    <h:inputText id="gpa" value="#{newStudentBean.student.gpa}" converter="javax.faces.Float" styleClass="u-full-width" />
+                                </div>
+                            </div>
+                        </c:if>
+
+                        <div class="row">
+                            <div class="six columns">
+                                <h:outputLabel value="Select room" />
+                                <h:selectOneMenu value="#{newStudentBean.roomId}">
+                                    <f:selectItems
+                                            value="#{newStudentBean.rooms}"
+                                            var="room"
+                                            itemLabel="#{room.buildingName} - #{room.roomNumber}"
+                                            itemValue="#{room.id}" />
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+
+                        <h:commandButton action="#{newStudentBean.create}" value="Submit">
+                            <c:if test="#{newStudentBean.showGpa()}">
+                                <f:param value="#{newStudentBean.student.id}" name="studentId" />
+                            </c:if>
+                        </h:commandButton>
+                    </h:form>
+                </f:view>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,72 @@
+<ui:composition template="./partials/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="content">
+        <f:view>
+            <h1>
+                <h:outputLabel value="Students"/>
+            </h1>
+        </f:view>
+        <div class="row">
+            <div class="twelve columns">
+                <h:form>
+                    <h:commandButton action="new-student?faces-redirect=true" value="New Student"/>
+                </h:form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <h:form>
+                    <h:outputLabel value="Filter"/>
+                    <h:inputText value="#{studentsBean.filterName}" style="margin-bottom: 0">
+                        <f:ajax event="keyup" listener="#{studentsBean.filterStudents}" render="studentsList"/>
+                    </h:inputText>
+                </h:form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="twelve columns">
+
+                <h:dataTable id="studentsList" value="#{studentsBean.getStudents()}" var="student" styleClass="u-full-width">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="First name"/>
+                        </f:facet>
+                        <h:outputText value="#{student.firstName}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Last name"/>
+                        </f:facet>
+                        <h:outputText value="#{student.lastName}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="GPA"/>
+                        </f:facet>
+                        <h:outputText value="#{student.gpa}"/>
+                    </h:column>
+
+                    <h:column>
+                        <h:link value="Edit" outcome="new-student?studentId=#{student.id}"
+                                styleClass="button button-primary"/>
+                    </h:column>
+
+                    <h:column>
+                        <h:form style="margin-bottom: 0;">
+                            <h:commandButton value="Delete" action="#{studentsBean.remove(student.id)}"
+                                             style="margin-bottom: 0" />
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

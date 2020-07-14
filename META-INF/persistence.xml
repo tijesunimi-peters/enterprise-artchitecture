@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="testingea2" transaction-type="JTA">
+<!--        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+        <jta-data-source>java:/MySqlDS</jta-data-source>
+        <class>com.company.entities.Post</class>
+        <class>com.company.entities.Author</class>
+        <class>com.company.entities.Gallery</class>
+        <class>com.company.entities.Subscriber</class>
+        <class>com.company.entities.User</class>
+        <class>com.company.entities.Email</class>
+        <class>com.company.entities.Category</class>
+        <class>com.company.entities.Comment</class>
+        <class>com.company.entities.Image</class>
+        <class>com.company.entities.Student</class>
+        <class>com.company.entities.Room</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db:3306/testea"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="tijesunimi"/>
+            <property name="javax.persistence.jdbc.password" value="example"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+<!--                        <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

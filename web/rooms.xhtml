@@ -1,0 +1,54 @@
+<ui:composition template="./partials/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+    <ui:define name="content">
+        <h1>
+            Rooms
+        </h1>
+
+        <div class="row">
+            <div class="twelve columns">
+                <f:view>
+                    <h:form>
+                        <div class="row">
+                            <div class="six columns">
+                                <h:outputLabel value="Building" for="building"/>
+                                <h:inputText id="building" value="#{roomsBean.room.buildingName}"
+                                             styleClass="u-full-width"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="six columns">
+                                <h:outputLabel value="Room Number" for="room_number"/>
+                                <h:inputText id="room_number" value="#{roomsBean.room.roomNumber}"
+                                             styleClass="u-full-width"/>
+                            </div>
+                        </div>
+
+                        <h:commandButton styleClass="button button-primary" action="#{roomsBean.create()}" value="Submit"/>
+                    </h:form>
+
+                    <h:dataTable id="roomsTable" value="#{roomsBean.rooms}" var="room">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Building Name"/>
+                            </f:facet>
+                            <h:outputText value="#{room.buildingName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Room number"/>
+                            </f:facet>
+                            <h:outputText value="#{room.roomNumber}"/>
+                        </h:column>
+                    </h:dataTable>
+                </f:view>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
